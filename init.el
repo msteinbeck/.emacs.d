@@ -30,7 +30,7 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-;; Bootstrap 'use-package'. 
+;; Bootstrap 'use-package'.
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -60,6 +60,12 @@
   :config
   (evil-collection-init))
 
+;; Enhanced mode-line.
+(use-package smart-mode-line
+  :ensure t
+  :config
+  (smart-mode-line-enable))
+
 ;; Jumping with avy.
 (use-package avy
   :ensure t
@@ -87,5 +93,14 @@
 
 ;;--- Additional Configuration ---------------------------------------
 
+;; Fix spellchecking with umlauts.
+(setq ispell-local-dictionary-alist nil)
+(add-to-list 'ispell-local-dictionary-alist '("deutsch8" "[[:alpha:]]"
+ 	       "[^[:alpha:]]" "[']" t ("-C" "-d" "deutsch") "~latin1"
+ 	       iso-8859-1))
+
 ;; Show column number.
-(setq column-number-mode t)
+(setq column-number-mode 1)
+
+;; Show matching parenthesis.
+(show-paren-mode 1)
