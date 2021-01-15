@@ -53,7 +53,7 @@
   :config
   (setq-default evil-escape-key-sequence "fd")
   (setq-default evil-escape-delay 0.1)
-  (evil-escape-mode t))
+  (evil-escape-mode 1))
 (use-package evil-collection
   :after evil
   :ensure t
@@ -87,9 +87,9 @@
   :ensure auctex
   :init
   ;; Parse file after loading it if no style hook is found for it.
-  (setq TeX-parse-self t)
+  (setq TeX-parse-self 1)
   ;;Automatically save style information when saving the buffer.
-  (setq TeX-auto-save t))
+  (setq TeX-auto-save 1))
 
 ;;--- Additional Configuration ---------------------------------------
 
