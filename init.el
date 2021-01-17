@@ -78,7 +78,6 @@
 (use-package avy
   :ensure t
   :bind
-  ("C-;" . avy-goto-char)
   ("C-'" . avy-goto-char-timer))
 
 ;; Git client.
@@ -101,11 +100,31 @@
 
 ;;--- Additional Configuration ---------------------------------------
 
+;; http://larsfischer.bplaced.net/emacs_umlaute.html
+;;
 ;; Fix spellchecking with umlauts.
 (setq ispell-local-dictionary-alist nil)
-(add-to-list 'ispell-local-dictionary-alist '("deutsch8" "[[:alpha:]]"
- 	       "[^[:alpha:]]" "[']" t ("-C" "-d" "deutsch") "~latin1"
- 	       iso-8859-1))
+(add-to-list 'ispell-local-dictionary-alist
+	     '("deutsch8"
+ 	       "[[:alpha:]]" "[^[:alpha:]]"
+	       "[']" t
+	       ("-C" "-d" "deutsch")
+ 	        "~latin1" iso-8859-1)
+ 	     )
+
+;; https://www.emacswiki.org/emacs/FlySpell#h5o-5
+;;
+;; Switch between English and German dictionary.
+(let ((langs '("english" "deutsch8")))
+      (setq lang-ring (make-ring (length langs)))
+      (dolist (elem langs) (ring-insert lang-ring elem)))
+(defun cycle-ispell-languages ()
+      (interactive)
+      (let ((lang (ring-ref lang-ring -1)))
+        (ring-insert lang-ring lang)
+        (ispell-change-dictionary lang)
+	(flyspell-buffer)))
+(global-set-key [f8] 'cycle-ispell-languages)
 
 ;; Show column number.
 (setq column-number-mode 1)
