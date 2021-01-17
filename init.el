@@ -57,8 +57,16 @@
 (use-package evil-collection
   :after evil
   :ensure t
+  :custom (evil-collection-setup-minibuffer t)
   :config
   (evil-collection-init))
+
+;; Comprehensive completion and selection framework.
+(use-package helm
+  :ensure t
+  :bind ("M-x" . helm-M-x)
+  :config
+  (helm-mode 1))
 
 ;; Enhanced mode-line.
 (use-package smart-mode-line
