@@ -61,7 +61,7 @@
   :config
   (evil-collection-init))
 
-;; Comprehensive completion and selection framework.
+;; Comprehensive narrowing-completion framework.
 (use-package helm
   :ensure t
   :bind ("M-x" . helm-M-x)
@@ -97,6 +97,17 @@
   (setq TeX-parse-self 1)
   ;;Automatically save style information when saving the buffer.
   (setq TeX-auto-save 1))
+
+;; Code completion (IntelliSense etc.).
+(use-package company
+  :ensure t
+  :hook ((prog-mode LaTeX-mode latex-mode) . company-mode)
+  :bind ("C-<tab>" . company-complete)
+  :config
+  (setq company-idle-delay 0)
+  (setq company-show-numbers t)
+  (setq company-tooltip-align-annotations t)
+  (setq company-selection-wrap-around t))
 
 ;;--- Additional Configuration ---------------------------------------
 
