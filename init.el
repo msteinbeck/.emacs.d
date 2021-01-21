@@ -61,12 +61,26 @@
   :config
   (evil-collection-init))
 
-;; Comprehensive narrowing-completion framework.
-(use-package helm
+;; Completion framework in minibuffer.
+(use-package ivy
   :ensure t
-  :bind ("M-x" . helm-M-x)
   :config
-  (helm-mode 1))
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-height 20)
+  (setq ivy-count-format "(%d/%d) ")
+  (ivy-mode 1))
+(use-package swiper
+  :ensure t
+  :bind
+  ("C-s" . swiper-isearch))
+(use-package counsel
+  :ensure t
+  :after ivy
+  :bind
+  ("C-c k" . counsel-ag)
+  ("C-c l" . counsel-locate)
+  :config
+  (counsel-mode 1))
 
 ;; Enhanced mode-line.
 (use-package smart-mode-line
