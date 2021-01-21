@@ -77,8 +77,9 @@
 ;; Jumping with avy.
 (use-package avy
   :ensure t
-  :bind
-  ("C-'" . avy-goto-char-timer))
+  :config
+  (setq avy-timeout-seconds 0.2))
+(bind-key* "C-;" 'avy-goto-char-timer)
 
 ;; Git client.
 (use-package magit
