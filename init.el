@@ -82,6 +82,21 @@
   :config
   (counsel-mode 1))
 
+;; Project management.
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode 1)
+  :bind
+  (:map projectile-mode-map
+	("C-c p" . projectile-command-map))
+  :config
+  (setq projectile-project-search-path '("~/Repositories/github/")))
+(use-package counsel-projectile
+  :ensure t
+  :config
+  (counsel-projectile-mode 1))
+
 ;; Enhanced mode-line.
 (use-package smart-mode-line
   :ensure t
