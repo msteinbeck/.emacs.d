@@ -131,7 +131,8 @@
 ;; Code completion (IntelliSense etc.).
 (use-package company
   :ensure t
-  :hook ((prog-mode LaTeX-mode latex-mode) . company-mode)
+  :hook
+  ((prog-mode LaTeX-mode latex-mode) . company-mode)
   :bind ("C-<tab>" . company-complete)
   :config
   (setq company-idle-delay 0)
