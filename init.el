@@ -64,7 +64,12 @@
 ;; Completion framework in minibuffer.
 (use-package ivy
   :ensure t
+  :bind
+  (:map ivy-mode-map
+	("C-j" . ivy-next-line)
+	("C-k" . ivy-previous-line))
   :config
+  (define-key evil-insert-state-map (kbd "C-k") nil)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-height 20)
   (setq ivy-count-format "(%d/%d) ")
