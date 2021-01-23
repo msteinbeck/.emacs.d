@@ -109,6 +109,11 @@
   (setq company-tooltip-align-annotations t)
   (setq company-selection-wrap-around t))
 
+;; On-the-fly syntax checking.
+(use-package flycheck
+  :config
+  (global-flycheck-mode))
+
 ;; Programming C++ with rtags.
 (use-package rtags
   :hook
@@ -131,6 +136,19 @@
   (rtags-diagnostics)
   (setq rtags-autostart-diagnostics t)
   (push 'company-rtags company-backends))
+(use-package flycheck-rtags
+  :hook
+  ((c-mode c++-mode) . setup-flycheck-rtags)
+  :config
+  (progn
+    (defun setup-flycheck-rtags ()
+      (flycheck-select-checker 'rtags)
+      ;; RTags creates more accurate overlays.
+      (setq-local flycheck-highlighting-mode nil)
+      (setq-local flycheck-check-syntax-automatically nil)
+      ;; Run flycheck two seconds after being idle.
+      (rtags-set-periodic-reparse-timeout 2.0)
+      )))
 
 ;; Enhanced mode-line.
 (use-package smart-mode-line
