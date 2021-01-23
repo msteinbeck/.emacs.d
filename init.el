@@ -114,7 +114,7 @@
   :config
   (global-flycheck-mode))
 
-;; Programming C++ with rtags.
+;; C++ with rtags.
 (use-package rtags
   :hook
   ((c-mode c++-mode) . rtags-start-process-unless-running)
@@ -150,6 +150,15 @@
       (rtags-set-periodic-reparse-timeout 2.0)
       )))
 
+;; LaTeX with AUCTex.
+(use-package tex-site
+  :straight auctex
+  :init
+  ;; Parse file after loading it if no style hook is found for it.
+  (setq TeX-parse-self 1)
+  ;;Automatically save style information when saving the buffer.
+  (setq TeX-auto-save 1))
+
 ;; Enhanced mode-line.
 (use-package smart-mode-line
   :config
@@ -166,20 +175,11 @@
   :bind
   ("C-x g" . magit-status))
 
-;; Edit .tex files with AUCTex.
-(use-package tex-site
-  :straight auctex
-  :init
-  ;; Parse file after loading it if no style hook is found for it.
-  (setq TeX-parse-self 1)
-  ;;Automatically save style information when saving the buffer.
-  (setq TeX-auto-save 1))
-
 ;;--- Additional Configuration ---------------------------------------
 
-;; http://larsfischer.bplaced.net/emacs_umlaute.html
-;;
 ;; Fix spellchecking with umlauts.
+;;
+;; http://larsfischer.bplaced.net/emacs_umlaute.html
 (setq ispell-local-dictionary-alist nil)
 (add-to-list 'ispell-local-dictionary-alist
 	     '("deutsch8"
@@ -189,9 +189,9 @@
  	        "~latin1" iso-8859-1)
  	     )
 
-;; https://www.emacswiki.org/emacs/FlySpell#h5o-5
-;;
 ;; Switch between English and German dictionary.
+;;
+;; https://www.emacswiki.org/emacs/FlySpell#h5o-5
 (let ((langs '("english" "deutsch8")))
       (setq lang-ring (make-ring (length langs)))
       (dolist (elem langs) (ring-insert lang-ring elem)))
