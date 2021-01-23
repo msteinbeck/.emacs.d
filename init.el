@@ -37,11 +37,15 @@
 ;;--- Load Packages --------------------------------------------------
 
 ;; Vim key bindings in Emacs.
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
 (use-package evil
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   :config
+  (evil-set-undo-system 'undo-tree)
   (evil-mode 1))
 (use-package evil-escape
   :after evil
