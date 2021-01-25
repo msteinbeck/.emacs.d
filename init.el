@@ -64,7 +64,8 @@
   :bind
   (:map ivy-mode-map
 	("C-j" . ivy-next-line)
-	("C-k" . ivy-previous-line))
+	("C-k" . ivy-previous-line)
+	("M-c" . ivy-switch-buffer))
   :config
   (define-key evil-insert-state-map (kbd "C-k") nil)
   (setq ivy-use-virtual-buffers t)
