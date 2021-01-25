@@ -171,11 +171,16 @@
   :config
   (smart-mode-line-enable))
 
-;; Jumping with avy.
+;; Jump in buffers with avy.
 (use-package avy
   :config
   (setq avy-timeout-seconds 0.2))
 (bind-key* "C-;" 'avy-goto-char-timer)
+
+;; Switch active window with ace-window.
+(use-package ace-window
+  :bind
+  ("M-o" . ace-window))
 
 ;; Git client.
 (use-package magit
