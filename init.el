@@ -74,7 +74,8 @@
   (ivy-mode 1))
 (use-package swiper
   :bind
-  ("C-s" . swiper-isearch))
+  ("C-s" . swiper-isearch)
+  ("C-M-s" . swiper-all))
 (use-package counsel
   :after ivy
   :bind
