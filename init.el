@@ -161,6 +161,11 @@
   ;;Automatically save style information when saving the buffer.
   (setq TeX-auto-save 1))
 
+;; PDF with pdf-tools.
+(use-package pdf-tools
+  :config
+  (pdf-loader-install))
+
 ;; Enhanced mode-line.
 (use-package smart-mode-line
   :config
