@@ -163,6 +163,10 @@
 (use-package pdf-tools
   :config
   (pdf-loader-install))
+(add-hook 'pdf-view-mode-hook
+	  (lambda ()
+	    (set (make-local-variable 'evil-normal-state-cursor)
+		 (list nil))))
 
 ;; Enhanced mode-line.
 (use-package smart-mode-line
