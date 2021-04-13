@@ -36,7 +36,7 @@
 
 ;;--- Load Packages --------------------------------------------------
 
-;; Vim key bindings in Emacs.
+;; Vim key bindings.
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
@@ -59,7 +59,7 @@
   :config
   (evil-collection-init))
 
-;; Completion framework in minibuffer.
+;; Completion framework (minibuffer).
 (use-package ivy
   :bind
   ("M-c" . ivy-switch-buffer)
@@ -114,7 +114,7 @@
   :config
   (global-flycheck-mode))
 
-;; C++ with rtags.
+;; C/C++ development.
 (use-package rtags
   :hook
   ((c-mode c++-mode) . rtags-start-process-unless-running)
@@ -150,7 +150,7 @@
       (rtags-set-periodic-reparse-timeout 2.0)
       )))
 
-;; LaTeX with AUCTex.
+;; LaTeX development.
 (use-package tex-site
   :straight auctex
   :init
@@ -159,7 +159,7 @@
   ;;Automatically save style information when saving the buffer.
   (setq TeX-auto-save 1))
 
-;; PDF with pdf-tools.
+;; PDF viewer.
 (use-package pdf-tools
   :config
   (pdf-loader-install))
@@ -173,13 +173,13 @@
   :config
   (smart-mode-line-enable))
 
-;; Jump in buffers with avy.
+;; Jump to visible text.
 (use-package avy
   :config
   (setq avy-timeout-seconds 0.2))
 (bind-key* "C-;" 'avy-goto-char-timer)
 
-;; Switch active window with ace-window.
+;; Switch active window.
 (use-package ace-window
   :bind
   ("M-o" . ace-window))
@@ -189,9 +189,15 @@
   :bind
   ("C-x g" . magit-status))
 
+;; Expand selection.
+(use-package expand-region
+  :bind
+  ("C-=" . er/expand-region)
+  ("M-=" . er/contract-region))
+
 ;;--- Additional Configuration ---------------------------------------
 
-;; Fix spellchecking with umlauts.
+;; Fix spell checking of words with umlauts.
 ;;
 ;; http://larsfischer.bplaced.net/emacs_umlaute.html
 (setq ispell-local-dictionary-alist nil)
@@ -222,6 +228,10 @@
 
 ;; Show matching parenthesis.
 (show-paren-mode 1)
+
+;; Disable splash screen and startup message.
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
 
 ;;--------------------------------------------------------------------
 
