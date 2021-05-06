@@ -79,13 +79,17 @@
 (use-package counsel
   :after ivy
   :bind
-  ("C-c k" . counsel-ag)
+  ("C-c r" . counsel-recentf)
+  ("C-c g" . counsel-rg)
   ("C-c l" . counsel-locate)
   :config
   (counsel-mode 1))
 (use-package ivy-rich
   :config
   (ivy-rich-mode 1))
+(use-package amx
+  :config
+  (amx-mode 1))
 
 ;; Project management.
 (use-package projectile
