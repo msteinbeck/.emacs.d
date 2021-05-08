@@ -71,6 +71,9 @@
   (setq ivy-use-virtual-buffers t)
   (setq ivy-height 20)
   (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-re-builders-alist
+	'((swiper-isearch . ivy--regex-plus)
+        (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
 (use-package swiper
   :bind
@@ -90,6 +93,7 @@
 (use-package amx
   :config
   (amx-mode 1))
+(use-package flx)
 
 ;; Project management.
 (use-package projectile
