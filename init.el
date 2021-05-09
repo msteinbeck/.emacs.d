@@ -205,6 +205,20 @@
 
 ;;--- Additional Configuration ---------------------------------------
 
+;; Setup Org TODO/Agenda.
+(setq org-agenda-files '("~/Org"))
+(setq org-default-notes-file "~/Org/organizer.org")
+(setq org-log-done 'time)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key
+ (kbd "C-c o")
+ (lambda () (interactive) (find-file "~/Org/organizer.org")))
+(setq org-todo-keywords
+      '((sequence
+	 "TODO(t)" "WAITING(w)" "INACTIVE(i)" "MEETING(m)"
+	 "|"
+	 "DONE(d)" "CANCELLED(c)")))
+
 ;; Fix spell checking of words with umlauts.
 ;;
 ;; http://larsfischer.bplaced.net/emacs_umlaute.html
