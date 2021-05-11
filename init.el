@@ -207,7 +207,10 @@
 
 ;; Load GPG environment variables into Emacs.
 (load (concat user-emacs-directory "parsenv.el"))
-(parsenv-load-env (expand-file-name (getenv "GPG_ENV_FILE")))
+(defun gpg-reload-env ()
+  (interactive)
+  (parsenv-load-env (expand-file-name (getenv "GPG_ENV_FILE"))))
+(gpg-reload-env)
 
 ;; Setup Org TODO/Agenda.
 (setq org-log-done 'time)
