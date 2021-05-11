@@ -206,16 +206,14 @@
 ;;--- Additional Configuration ---------------------------------------
 
 ;; Setup Org TODO/Agenda.
-(setq org-agenda-files '("~/Org"))
-(setq org-default-notes-file "~/Org/organizer.org")
 (setq org-log-done 'time)
+(setq org-agenda-files '("~/Org"))
+(setq org-refile-targets '((org-agenda-files . (:maxlevel . 1))))
+(setq org-default-notes-file "~/Org/organizer.org")
 (global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key
- (kbd "C-c o")
- (lambda () (interactive) (find-file "~/Org/organizer.org")))
 (setq org-todo-keywords
       '((sequence
-	 "TODO(t)" "WAITING(w)" "INACTIVE(i)" "MEETING(m)"
+	 "TODO(t)" "WAITING(w)" "INACTIVE(i)" "MEETING(m)" "NOTE(n)"
 	 "|"
 	 "DONE(d)" "CANCELLED(c)")))
 
