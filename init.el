@@ -36,7 +36,7 @@
 
 ;;--- Load Packages --------------------------------------------------
 
-;; Displays available key bindings.
+;; Display available key bindings.
 (use-package which-key
   :config
   (which-key-mode))
