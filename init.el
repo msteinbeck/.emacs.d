@@ -72,8 +72,8 @@
   (setq ivy-height 20)
   (setq ivy-count-format "(%d/%d) ")
   (setq ivy-re-builders-alist
-	'((swiper-isearch . ivy--regex-plus)
-        (t . ivy--regex-fuzzy)))
+	'((counsel-M-x . ivy--regex-fuzzy)
+	  (t . ivy--regex-plus)))
   (ivy-mode 1))
 (use-package swiper
   :bind
