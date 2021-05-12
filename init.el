@@ -36,6 +36,11 @@
 
 ;;--- Load Packages --------------------------------------------------
 
+;; Displays available key bindings.
+(use-package which-key
+  :config
+  (which-key-mode))
+
 ;; Vim key bindings.
 (use-package undo-tree
   :config
