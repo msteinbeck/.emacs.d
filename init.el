@@ -266,6 +266,9 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
+;; Restore position in buffers.
+(save-place-mode)
+
 ;;--------------------------------------------------------------------
 
 (provide 'init)
