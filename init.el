@@ -44,6 +44,7 @@
 ;; Vim key bindings.
 (use-package undo-tree
   :config
+  (setq undo-tree-auto-save-history t)
   (global-undo-tree-mode))
 (use-package evil
   :init
