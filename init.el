@@ -34,7 +34,29 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; This directory contains additional libraries that are not available
+;; via straight.
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
+
 ;;--- Load Packages --------------------------------------------------
+
+;; Allows to load environment variables in files (e.g., gpg-agent.env)
+;; into the running Emacs process.
+(require 'parsenv)
+
+;; Extend dired with additional keybindings and features.
+(use-package dired
+  :straight nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom
+  ((dired-listing-switches "-agho --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+(use-package dired-single
+  :commands (dired dired-jump))
 
 ;; Display available key bindings.
 (use-package which-key
@@ -212,7 +234,6 @@
 ;;--- Additional Configuration ---------------------------------------
 
 ;; Load GPG environment variables into Emacs.
-(load (concat user-emacs-directory "parsenv.el"))
 (defun gpg-reload-env ()
   (interactive)
   (parsenv-load-env (expand-file-name (getenv "GPG_ENV_FILE"))))
