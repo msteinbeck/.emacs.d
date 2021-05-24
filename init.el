@@ -40,8 +40,8 @@
 
 ;;--- Load Packages --------------------------------------------------
 
-;; Allows environment variables that are stored in files to be loaded
-;; into the running Emacs process.
+;; Provides functions for loading environment variables, which are
+;; stored in files, into the running Emacs process.
 (require 'parsenv)
 
 ;; Extend dired with additional keybindings and features.
