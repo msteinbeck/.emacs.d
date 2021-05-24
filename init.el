@@ -73,7 +73,7 @@
   :config
   (which-key-mode))
 
-;; Extend dired with additional keybindings and features.
+;; Extend dired with additional key bindings and features.
 (use-package dired
   :straight nil
   :commands (dired dired-jump)
