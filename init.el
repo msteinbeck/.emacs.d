@@ -40,7 +40,7 @@
 
 ;;--- Load Packages --------------------------------------------------
 
-;; Allows to load environment variables in files (e.g., gpg-agent.env)
+;; Allows environment variables that are stored in files to be loaded
 ;; into the running Emacs process.
 (require 'parsenv)
 
