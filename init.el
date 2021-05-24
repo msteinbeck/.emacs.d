@@ -57,6 +57,11 @@
     "l" 'dired-single-buffer))
 (use-package dired-single
   :commands (dired dired-jump))
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
 
 ;; Display available key bindings.
 (use-package which-key
