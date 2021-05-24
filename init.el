@@ -67,6 +67,10 @@
   (setq-default evil-escape-key-sequence "fd")
   (setq-default evil-escape-delay 0.1)
   (evil-escape-mode 1))
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 ;; Display available key bindings.
 (use-package which-key
