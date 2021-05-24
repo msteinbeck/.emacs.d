@@ -44,6 +44,35 @@
 ;; stored in files, into the running Emacs process.
 (require 'parsenv)
 
+;; Vim key bindings.
+(use-package undo-tree
+  :config
+  (setq undo-tree-auto-save-history t)
+  (global-undo-tree-mode))
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-set-undo-system 'undo-tree)
+  (evil-mode 1))
+(use-package evil-collection
+  :after evil
+  :custom (evil-collection-setup-minibuffer t)
+  :config
+  (evil-collection-init))
+(use-package evil-escape
+  :after evil
+  :config
+  (setq-default evil-escape-key-sequence "fd")
+  (setq-default evil-escape-delay 0.1)
+  (evil-escape-mode 1))
+
+;; Display available key bindings.
+(use-package which-key
+  :config
+  (which-key-mode))
+
 ;; Extend dired with additional keybindings and features.
 (use-package dired
   :straight nil
@@ -62,35 +91,6 @@
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "H" 'dired-hide-dotfiles-mode))
-
-;; Display available key bindings.
-(use-package which-key
-  :config
-  (which-key-mode))
-
-;; Vim key bindings.
-(use-package undo-tree
-  :config
-  (setq undo-tree-auto-save-history t)
-  (global-undo-tree-mode))
-(use-package evil
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  :config
-  (evil-set-undo-system 'undo-tree)
-  (evil-mode 1))
-(use-package evil-escape
-  :after evil
-  :config
-  (setq-default evil-escape-key-sequence "fd")
-  (setq-default evil-escape-delay 0.1)
-  (evil-escape-mode 1))
-(use-package evil-collection
-  :after evil
-  :custom (evil-collection-setup-minibuffer t)
-  :config
-  (evil-collection-init))
 
 ;; Completion framework (minibuffer).
 (use-package ivy
