@@ -53,6 +53,7 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
   :config
   (evil-set-undo-system 'undo-tree)
   (evil-mode 1))
@@ -76,6 +77,12 @@
 (use-package evil-exchange
   :config
   (evil-exchange-install))
+(use-package evil-org
+  :after org
+  :hook (org-mode . (lambda () evil-org-mode))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 ;; Display available key bindings.
 (use-package which-key
