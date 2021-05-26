@@ -36,7 +36,7 @@
 
 ;; This directory contains additional libraries that are not available
 ;; via straight.
-(add-to-list 'load-path (concat user-emacs-directory "libs"))
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
 
 ;;--- Load Packages --------------------------------------------------
 
