@@ -40,12 +40,16 @@
 
 ;;--- Load Packages --------------------------------------------------
 
+;; Remove items from mode-line.
+(use-package diminish)
+
 ;; Provides functions for loading environment variables, which are
 ;; stored in files, into the running Emacs process.
 (require 'parsenv)
 
 ;; Vim key bindings.
 (use-package undo-tree
+  :diminish
   :config
   (setq undo-tree-auto-save-history t)
   (global-undo-tree-mode))
@@ -64,6 +68,7 @@
   (evil-collection-init))
 (use-package evil-escape
   :after evil
+  :diminish
   :config
   (setq-default evil-escape-key-sequence "fd")
   (setq-default evil-escape-delay 0.1)
@@ -86,6 +91,7 @@
 
 ;; Display available key bindings.
 (use-package which-key
+  :diminish
   :config
   (which-key-mode))
 
@@ -110,6 +116,7 @@
 
 ;; Completion framework (minibuffer).
 (use-package ivy
+  :diminish
   :bind
   ("M-c" . ivy-switch-buffer)
   (:map ivy-mode-map
@@ -130,6 +137,7 @@
   ("C-M-s" . swiper-all))
 (use-package counsel
   :after ivy
+  :diminish
   :bind
   ("C-c r" . counsel-recentf)
   ("C-c g" . counsel-rg)
@@ -146,6 +154,7 @@
 
 ;; Project management.
 (use-package projectile
+  :diminish
   :init
   (projectile-mode 1)
   :bind
@@ -157,6 +166,7 @@
 
 ;; Code completion (IntelliSense etc.).
 (use-package company
+  :diminish
   :hook
   ((prog-mode LaTeX-mode latex-mode) . company-mode)
   :bind ("C-<tab>" . company-complete)
