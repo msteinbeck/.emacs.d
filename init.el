@@ -166,7 +166,7 @@
   (setq company-tooltip-align-annotations t)
   (setq company-selection-wrap-around t))
 
-;; On-the-fly syntax checking.
+;; On-the-fly syntax checking and linting.
 (use-package flycheck
   :config
   (global-flycheck-mode))
@@ -307,6 +307,9 @@
 ;; Disable splash screen and startup message.
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
+
+;; Disable tool bar.
+(tool-bar-mode -1)
 
 ;; Restore position in buffers.
 (save-place-mode)
