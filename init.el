@@ -119,6 +119,7 @@
   :diminish
   :bind
   ("M-c" . ivy-switch-buffer)
+  ("C-M-j" . ivy-switch-buffer)
   (:map ivy-mode-map
 	("C-j" . ivy-next-line)
 	("C-k" . ivy-previous-line))
