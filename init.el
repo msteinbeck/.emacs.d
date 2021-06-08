@@ -218,6 +218,10 @@
       (rtags-set-periodic-reparse-timeout 2.0)
       )))
 
+;; CMake development.
+(use-package cmake-mode)
+(use-package cmake-font-lock)
+
 ;; LaTeX development.
 (use-package tex-site
   :straight auctex
