@@ -121,16 +121,16 @@
   ("M-c" . ivy-switch-buffer)
   ("C-M-j" . ivy-switch-buffer)
   (:map ivy-mode-map
-	("C-j" . ivy-next-line)
-	("C-k" . ivy-previous-line))
+        ("C-j" . ivy-next-line)
+        ("C-k" . ivy-previous-line))
   :config
   (define-key evil-insert-state-map (kbd "C-k") nil)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-height 20)
   (setq ivy-count-format "(%d/%d) ")
   (setq ivy-re-builders-alist
-	'((counsel-M-x . ivy--regex-fuzzy)
-	  (t . ivy--regex-plus)))
+        '((counsel-M-x . ivy--regex-fuzzy)
+          (t . ivy--regex-plus)))
   (ivy-mode 1))
 (use-package swiper
   :bind
@@ -160,7 +160,7 @@
   (projectile-mode 1)
   :bind
   (:map projectile-mode-map
-	("C-c p" . projectile-command-map)))
+        ("C-c p" . projectile-command-map)))
 (use-package counsel-projectile
   :config
   (counsel-projectile-mode 1))
@@ -189,9 +189,9 @@
   ((kill-emacs-hook) . rtags-quit-rdm)
   :bind
   (:map c-mode-base-map
-	("M-." . rtags-find-symbol-at-point)
-	("M-," . rtags-find-references-at-point)
-	("M-?" . rtags-display-summary))
+        ("M-." . rtags-find-symbol-at-point)
+        ("M-," . rtags-find-references-at-point)
+        ("M-?" . rtags-display-summary))
   :config
   (define-key evil-normal-state-map (kbd "M-.") nil)
   (rtags-enable-standard-keybindings))
@@ -236,9 +236,9 @@
   :config
   (pdf-loader-install))
 (add-hook 'pdf-view-mode-hook
-	  (lambda ()
-	    (set (make-local-variable 'evil-normal-state-cursor)
-		 (list nil))))
+          (lambda ()
+            (set (make-local-variable 'evil-normal-state-cursor)
+                 (list nil))))
 
 ;; Enhanced mode-line.
 (use-package smart-mode-line
@@ -283,21 +283,21 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-todo-keywords
       '((sequence
-	 "TODO(t)" "WAITING(w)" "INACTIVE(i)" "MEETING(m)" "NOTE(n)"
-	 "|"
-	 "DONE(d)" "CANCELLED(c)")))
+         "TODO(t)" "WAITING(w)" "INACTIVE(i)" "MEETING(m)" "NOTE(n)"
+         "|"
+         "DONE(d)" "CANCELLED(c)")))
 
 ;; Fix spell checking of words with umlauts.
 ;;
 ;; http://larsfischer.bplaced.net/emacs_umlaute.html
 (setq ispell-local-dictionary-alist nil)
 (add-to-list 'ispell-local-dictionary-alist
-	     '("deutsch8"
- 	       "[[:alpha:]]" "[^[:alpha:]]"
-	       "[']" t
-	       ("-C" "-d" "deutsch")
- 	        "~latin1" iso-8859-1)
- 	     )
+             '("deutsch8"
+               "[[:alpha:]]" "[^[:alpha:]]"
+               "[']" t
+               ("-C" "-d" "deutsch")
+               "~latin1" iso-8859-1)
+             )
 
 ;; Switch between English and German dictionary.
 ;;
@@ -310,7 +310,7 @@
       (let ((lang (ring-ref lang-ring -1)))
         (ring-insert lang-ring lang)
         (ispell-change-dictionary lang)
-	(flyspell-buffer)))
+        (flyspell-buffer)))
 (global-set-key [f8] 'cycle-ispell-languages)
 
 ;; Show column number.
