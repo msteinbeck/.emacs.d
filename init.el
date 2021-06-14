@@ -43,8 +43,8 @@
 ;; Remove items from mode-line.
 (use-package diminish)
 
-;; Provides functions for loading environment variables, which are
-;; stored in files, into the running Emacs process.
+;; Provides functions for loading environment variables stored in
+;; files into the running Emacs process.
 (require 'parsenv)
 
 ;; Vim key bindings.
