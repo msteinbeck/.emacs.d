@@ -269,6 +269,18 @@
 
 ;;--- Additional Configuration ---------------------------------------
 
+;; Show spaces and tabs in prog-mode.
+(setq whitespace-style
+      '(face
+        spaces
+        tabs tab-mark
+        trailing))
+(custom-set-faces '(whitespace-tab ((t (:foreground "#cbcbcb")))))
+(setq whitespace-display-mappings
+      '((tab-mark 9 [8594 9] [92 9])))
+(setq whitespace-space-regexp "\\(^\t* +\\)")
+(add-hook 'prog-mode-hook 'whitespace-mode)
+
 ;; Load GPG environment variables into Emacs.
 (defun gpg-reload-env ()
   (interactive)
