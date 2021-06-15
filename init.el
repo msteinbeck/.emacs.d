@@ -43,6 +43,12 @@
 ;; Remove items from mode-line.
 (use-package diminish)
 
+;; Display available key bindings.
+(use-package which-key
+  :diminish
+  :config
+  (which-key-mode))
+
 ;; Provides functions for loading environment variables stored in
 ;; files into the running Emacs process.
 (require 'parsenv)
@@ -88,12 +94,6 @@
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
-
-;; Display available key bindings.
-(use-package which-key
-  :diminish
-  :config
-  (which-key-mode))
 
 ;; Extend dired with additional key bindings and features.
 (use-package dired
@@ -153,19 +153,7 @@
   (amx-mode 1))
 (use-package flx)
 
-;; Project management.
-(use-package projectile
-  :diminish
-  :init
-  (projectile-mode 1)
-  :bind
-  (:map projectile-mode-map
-        ("C-c p" . projectile-command-map)))
-(use-package counsel-projectile
-  :config
-  (counsel-projectile-mode 1))
-
-;; Code completion (IntelliSense etc.).
+;; Text completion framework (IntelliSense).
 (use-package company
   :diminish
   :hook
@@ -181,6 +169,18 @@
 (use-package flycheck
   :config
   (global-flycheck-mode))
+
+;; Project management.
+(use-package projectile
+  :diminish
+  :init
+  (projectile-mode 1)
+  :bind
+  (:map projectile-mode-map
+        ("C-c p" . projectile-command-map)))
+(use-package counsel-projectile
+  :config
+  (counsel-projectile-mode 1))
 
 ;; C/C++ development.
 (use-package rtags
