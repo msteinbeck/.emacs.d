@@ -153,7 +153,7 @@
   (amx-mode 1))
 (use-package flx)
 
-;; Text completion framework (IntelliSense).
+;; Text completion framework (code completion).
 (use-package company
   :diminish
   :hook
@@ -164,11 +164,6 @@
   (setq company-show-numbers t)
   (setq company-tooltip-align-annotations t)
   (setq company-selection-wrap-around t))
-
-;; On-the-fly syntax checking and linting.
-(use-package flycheck
-  :config
-  (global-flycheck-mode))
 
 ;; Project management.
 (use-package projectile
@@ -181,6 +176,11 @@
 (use-package counsel-projectile
   :config
   (counsel-projectile-mode 1))
+
+;; On-the-fly syntax checking and linting.
+(use-package flycheck
+  :config
+  (global-flycheck-mode))
 
 ;; C/C++ development.
 (use-package rtags
