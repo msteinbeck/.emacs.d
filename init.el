@@ -229,7 +229,12 @@
   ;; Parse file after loading it if no style hook is found for it.
   (setq TeX-parse-self 1)
   ;;Automatically save style information when saving the buffer.
-  (setq TeX-auto-save 1))
+  (setq TeX-auto-save 1)
+  :config
+  ;; Use pdf-tools to open PDF files.
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-mode t
+        TeX-source-correlate-start-server t))
 
 ;; PDF viewer.
 (use-package pdf-tools
