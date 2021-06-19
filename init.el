@@ -234,7 +234,11 @@
   ;; Use pdf-tools to open PDF files.
   (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
         TeX-source-correlate-mode t
-        TeX-source-correlate-start-server t))
+        TeX-source-correlate-start-server t)
+  ;; This adds Make to the tex command list.
+  (eval-after-load "tex"
+    '(add-to-list 'TeX-command-list
+                  '("Make" "make" TeX-run-compile nil t))))
 
 ;; PDF viewer.
 (use-package pdf-tools
