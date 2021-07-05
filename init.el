@@ -230,11 +230,18 @@
   (setq TeX-parse-self 1)
   ;;Automatically save style information when saving the buffer.
   (setq TeX-auto-save 1)
+  ;; Activate interface between RefTeX and AUCTeX
+  (setq reftex-plug-into-AUCTeX t)
+  :hook
+  ((LaTeX-mode latex-mode) . reftex-mode)
   :config
   ;; Use pdf-tools to open PDF files.
   (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
         TeX-source-correlate-mode t
         TeX-source-correlate-start-server t)
+  ;; Update PDF buffers after compilation.
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
   ;; This adds Make to the tex command list.
   (eval-after-load "tex"
     '(add-to-list 'TeX-command-list
