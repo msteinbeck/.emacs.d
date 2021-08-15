@@ -256,6 +256,11 @@
             (set (make-local-variable 'evil-normal-state-cursor)
                  (list nil))))
 
+;; Enable flyspell in certain modes.
+(use-package flyspell
+  :hook
+  ((prog-mode LaTeX-mode latex-mode) . flyspell-mode))
+
 ;; Enhanced mode-line.
 (use-package smart-mode-line
   :config
