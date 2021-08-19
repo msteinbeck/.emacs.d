@@ -302,6 +302,22 @@
 (setq whitespace-space-regexp "\\(^\t* +\\)")
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
+;; Configure indention.
+;;
+;; https://dougie.io/emacs/indentation
+(setq default-tab-width 8)
+(setq-default electric-indent-inhibit t)
+(setq backward-delete-char-untabify-method 'hungry)
+
+(defun disable-tabs ()
+  (setq indent-tabs-mode nil))
+(defun enable-tabs ()
+  (setq indent-tabs-mode t)
+  (setq tab-width default-tab-width))
+(add-hook 'prog-mode-hook 'enable-tabs)
+(add-hook 'lisp-mode-hook 'disable-tabs)
+(add-hook 'emacs-lisp-mode-hook 'disable-tabs)
+
 ;; Load GPG environment variables into Emacs.
 (defun gpg-reload-env ()
   (interactive)
