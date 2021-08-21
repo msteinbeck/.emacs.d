@@ -147,7 +147,9 @@
   (counsel-mode 1))
 (use-package ivy-rich
   :config
-  (ivy-rich-mode 1))
+  (ivy-rich-mode 1)
+  (setq ivy-rich-parse-remote-buffer nil
+        ivy-rich-parse-remote-file-path nil))
 (use-package amx
   :config
   (amx-mode 1))
