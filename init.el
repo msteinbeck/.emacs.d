@@ -2,6 +2,8 @@
 ;;
 ;;; Commentary:
 ;;
+;; My Emacs setup.
+;;
 ;;; Code:
 
 ;;--- General Setup --------------------------------------------------
@@ -38,20 +40,60 @@
 ;; via straight.
 (add-to-list 'load-path (concat user-emacs-directory "libs"))
 
-;;--- Load Packages --------------------------------------------------
-
 ;; Remove items from mode-line.
 (use-package diminish)
+
+;; Provides functions for loading environment variables stored in
+;; files into the running Emacs process.
+(require 'parsenv)
+
+;;--- Authentication -------------------------------------------------
+
+;; Load GPG environment variables into Emacs.
+(defun gpg-reload-env ()
+  "(Re)load GPG environment variables."
+  (interactive)
+  (parsenv-load-env (expand-file-name (getenv "GPG_ENV_FILE"))))
+(gpg-reload-env)
+
+;; Setup auth-source.
+(use-package auth-source-pass
+  :config
+  (auth-source-pass-enable))
+
+(defun auth-source-user (host)
+  "Read user property of HOST."
+  (let ((result (auth-source-search :host host)))
+    (if result
+        (plist-get (car result) :user)
+        nil)))
+
+(defun auth-source-password (host)
+  "Read secret property of HOST."
+  (let ((result (auth-source-search :host host)))
+    (if result
+        (funcall (plist-get (car result) :secret))
+        nil)))
+
+(defun auth-source-port (host)
+  "Read port property of HOST."
+  (let ((result (auth-source-search :host host)))
+    (if result
+        (plist-get (car result) :port)
+        nil)))
+
+(defun password-store-credential (host)
+  "Build credential string of HOST."
+  (concat (auth-source-password host)
+          "\nlogin: " (auth-source-user host)))
+
+;;--- Editor ---------------------------------------------------------
 
 ;; Display available key bindings.
 (use-package which-key
   :diminish
   :config
   (which-key-mode))
-
-;; Provides functions for loading environment variables stored in
-;; files into the running Emacs process.
-(require 'parsenv)
 
 ;; Vim key bindings.
 (use-package undo-tree
@@ -95,25 +137,6 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-;; Extend dired with additional key bindings and features.
-(use-package dired
-  :straight nil
-  :commands (dired dired-jump)
-  :bind (("C-x C-j" . dired-jump))
-  :custom
-  ((dired-listing-switches "-agho --group-directories-first"))
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer))
-(use-package dired-single
-  :commands (dired dired-jump))
-(use-package dired-hide-dotfiles
-  :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
-
 ;; Completion framework (minibuffer).
 (use-package ivy
   :diminish
@@ -154,6 +177,114 @@
   :config
   (amx-mode 1))
 (use-package flx)
+
+;; Enable flyspell in certain modes.
+(use-package flyspell
+  :hook
+  ((prog-mode LaTeX-mode latex-mode) . flyspell-mode))
+
+;; Enhanced mode-line.
+(use-package smart-mode-line
+  :config
+  (smart-mode-line-enable))
+
+;; Jump to visible text.
+(use-package avy
+  :config
+  (setq avy-timeout-seconds 0.2))
+(bind-key* "C-;" 'avy-goto-char-timer)
+
+;; Switch active window.
+(use-package ace-window
+  :bind
+  ("M-o" . ace-window))
+
+;; Expand selection.
+(use-package expand-region
+  :bind
+  ("C-=" . er/expand-region)
+  ("M-=" . er/contract-region))
+
+;; Fix spell checking of words with umlauts.
+;;
+;; http://larsfischer.bplaced.net/emacs_umlaute.html
+(setq ispell-local-dictionary-alist nil)
+(add-to-list 'ispell-local-dictionary-alist
+             '("deutsch8"
+               "[[:alpha:]]" "[^[:alpha:]]"
+               "[']" t
+               ("-C" "-d" "deutsch")
+               "~latin1" iso-8859-1)
+             )
+
+;; Switch between English and German dictionary.
+;;
+;; https://www.emacswiki.org/emacs/FlySpell#h5o-5
+(let ((langs '("english" "deutsch8")))
+      (setq lang-ring (make-ring (length langs)))
+      (dolist (elem langs) (ring-insert lang-ring elem)))
+(defun cycle-ispell-languages ()
+      (interactive)
+      (let ((lang (ring-ref lang-ring -1)))
+        (ring-insert lang-ring lang)
+        (ispell-change-dictionary lang)
+        (flyspell-buffer)))
+(global-set-key [f8] 'cycle-ispell-languages)
+
+;; Show column number.
+(setq column-number-mode 1)
+
+;; Disable splash screen and startup message.
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+
+;; Show matching parenthesis.
+(show-paren-mode 1)
+
+;; Disable tool bar.
+(tool-bar-mode -1)
+
+;; Restore position in buffers.
+(save-place-mode)
+
+;;--- File Management ------------------------------------------------
+
+;; Extend dired with additional key bindings and features.
+(use-package dired
+  :straight nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom
+  ((dired-listing-switches "-agho --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+(use-package dired-single
+  :commands (dired dired-jump))
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
+
+;;--- Document Viewer ------------------------------------------------
+
+;; PDF viewer.
+(use-package pdf-tools
+  :config
+  (pdf-loader-install))
+(add-hook 'pdf-view-mode-hook
+          (lambda ()
+            (set (make-local-variable 'evil-normal-state-cursor)
+                 (list nil))))
+
+;;--- Development ----------------------------------------------------
+
+;; Git client.
+(use-package magit
+  :bind
+  ("C-x g" . magit-status))
 
 ;; Text completion framework (code completion).
 (use-package company
@@ -249,49 +380,6 @@
     '(add-to-list 'TeX-command-list
                   '("Make" "make" TeX-run-compile nil t))))
 
-;; PDF viewer.
-(use-package pdf-tools
-  :config
-  (pdf-loader-install))
-(add-hook 'pdf-view-mode-hook
-          (lambda ()
-            (set (make-local-variable 'evil-normal-state-cursor)
-                 (list nil))))
-
-;; Enable flyspell in certain modes.
-(use-package flyspell
-  :hook
-  ((prog-mode LaTeX-mode latex-mode) . flyspell-mode))
-
-;; Enhanced mode-line.
-(use-package smart-mode-line
-  :config
-  (smart-mode-line-enable))
-
-;; Jump to visible text.
-(use-package avy
-  :config
-  (setq avy-timeout-seconds 0.2))
-(bind-key* "C-;" 'avy-goto-char-timer)
-
-;; Switch active window.
-(use-package ace-window
-  :bind
-  ("M-o" . ace-window))
-
-;; Git client.
-(use-package magit
-  :bind
-  ("C-x g" . magit-status))
-
-;; Expand selection.
-(use-package expand-region
-  :bind
-  ("C-=" . er/expand-region)
-  ("M-=" . er/contract-region))
-
-;;--- Additional Configuration ---------------------------------------
-
 ;; Show spaces and tabs in prog-mode.
 (setq whitespace-style
       '(face
@@ -310,21 +398,40 @@
 (setq default-tab-width 8)
 (setq-default electric-indent-inhibit t)
 (setq backward-delete-char-untabify-method 'hungry)
-
 (defun disable-tabs ()
+  "Disable tabs for indention."
   (setq indent-tabs-mode nil))
 (defun enable-tabs ()
+  "Enable tabs for indention."
   (setq indent-tabs-mode t)
   (setq tab-width default-tab-width))
 (add-hook 'prog-mode-hook 'enable-tabs)
 (add-hook 'lisp-mode-hook 'disable-tabs)
 (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
 
-;; Load GPG environment variables into Emacs.
-(defun gpg-reload-env ()
+;;--- Mail -----------------------------------------------------------
+
+;; Setup ERC.
+(use-package erc
+  :custom
+  (erc-hide-list '("JOIN" "PART" "QUIT"))
+  (erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
+  (erc-prompt-for-nickserv-password nil)
+  (erc-server-reconnect-attempts 5)
+  (erc-server-reconnect-timeout 3)
+  (erc-track-exclude-types '("JOIN" "MODE" "NICK" "PART" "QUIT"
+                             "324" "329" "332" "333" "353" "477"))
+  :config
+  (erc-services-mode 1)
+  (erc-update-modules))
+(defun erc-connect ()
+  "Connect to default IRC server."
   (interactive)
-  (parsenv-load-env (expand-file-name (getenv "GPG_ENV_FILE"))))
-(gpg-reload-env)
+  (erc :server "irc.libera.chat"
+       :port (auth-source-port "irc.libera.chat")
+       :nick (auth-source-user "irc.libera.chat")))
+
+;;--- Organizing -----------------------------------------------------
 
 ;; Setup Org TODO/Agenda.
 (setq org-log-done 'time)
@@ -338,47 +445,7 @@
          "|"
          "DONE(d)" "CANCELLED(c)")))
 
-;; Fix spell checking of words with umlauts.
-;;
-;; http://larsfischer.bplaced.net/emacs_umlaute.html
-(setq ispell-local-dictionary-alist nil)
-(add-to-list 'ispell-local-dictionary-alist
-             '("deutsch8"
-               "[[:alpha:]]" "[^[:alpha:]]"
-               "[']" t
-               ("-C" "-d" "deutsch")
-               "~latin1" iso-8859-1)
-             )
 
-;; Switch between English and German dictionary.
-;;
-;; https://www.emacswiki.org/emacs/FlySpell#h5o-5
-(let ((langs '("english" "deutsch8")))
-      (setq lang-ring (make-ring (length langs)))
-      (dolist (elem langs) (ring-insert lang-ring elem)))
-(defun cycle-ispell-languages ()
-      (interactive)
-      (let ((lang (ring-ref lang-ring -1)))
-        (ring-insert lang-ring lang)
-        (ispell-change-dictionary lang)
-        (flyspell-buffer)))
-(global-set-key [f8] 'cycle-ispell-languages)
-
-;; Show column number.
-(setq column-number-mode 1)
-
-;; Show matching parenthesis.
-(show-paren-mode 1)
-
-;; Disable splash screen and startup message.
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-
-;; Disable tool bar.
-(tool-bar-mode -1)
-
-;; Restore position in buffers.
-(save-place-mode)
 
 ;;--------------------------------------------------------------------
 
