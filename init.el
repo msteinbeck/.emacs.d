@@ -352,6 +352,7 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
   (global-flycheck-mode))
 
 ;; C/C++ development.
+(setq c-default-style "linux")
 (use-package rtags
   :hook
   ((c-mode c++-mode) . rtags-start-process-unless-running)
