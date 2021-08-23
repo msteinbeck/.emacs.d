@@ -327,6 +327,13 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
   (setq company-tooltip-align-annotations t)
   (setq company-selection-wrap-around t))
 
+;; Template system.
+(use-package yasnippet
+  :diminish
+  :config
+  (yas-global-mode 1))
+(use-package yasnippet-snippets)
+
 ;; Project management.
 (use-package projectile
   :diminish
