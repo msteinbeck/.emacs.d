@@ -221,7 +221,7 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
 (use-package avy
   :config
   (setq avy-timeout-seconds 0.2))
-(bind-key* "C-;" 'avy-goto-char-timer)
+(bind-key* "C-;" 'avy-goto-char-2)
 
 ;; Switch active window.
 (use-package ace-window
