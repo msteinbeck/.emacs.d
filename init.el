@@ -61,6 +61,35 @@
   :config
   (auth-source-pass-enable))
 
+(defun auth-source-pass--build-result (host port user)
+  "Build auth-source-pass entry matching HOST, PORT and USER.
+This version of the function parses an entry only once."
+  (let ((entry (auth-source-pass-parse-entry (auth-source-pass--find-match host user))))
+    (when entry
+      (let ((retval (list
+                     :host host
+                     :port (cdr (assoc "port" entry))
+                     :user (cdr (assoc "user" entry))
+                     :secret (lambda () (cdr (assoc 'secret entry))))))
+        (auth-source-pass--do-debug "return %s as final result (plus hidden password)"
+                                    (seq-subseq retval 0 -2)) ;; remove password
+        retval))))
+
+(defun auth-source-pass--find-all-by-entry-name (entryname user)
+  "Search the store for all entries either matching ENTRYNAME/USER or ENTRYNAME.
+This version of the function ignores `auth-source-pass--entry-valid-p'."
+  (seq-filter (lambda (entry)
+                (and
+                 (or
+                  (let ((components-host-user
+                         (member entryname (split-string entry "/"))))
+                    (and (= (length components-host-user) 2)
+                         (string-equal user (cadr components-host-user))))
+                  (string-equal entryname (file-name-nondirectory entry)))
+                 ;(auth-source-pass--entry-valid-p entry)))
+                 ))
+              (auth-source-pass-entries)))
+
 (defun auth-source-user (host)
   "Read user property of HOST."
   (let ((result (auth-source-search :host host)))
