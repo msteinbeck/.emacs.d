@@ -59,7 +59,11 @@
 ;; Setup auth-source.
 (use-package auth-source-pass
   :config
-  (auth-source-pass-enable))
+  ;; password-store must be added at the end of auth-sources.
+  (add-to-list 'auth-sources 'password-store t)
+  ;; Clear the cache (required after each change to
+  ;; #'auth-source-pass-search).
+  (auth-source-forget-all-cached))
 
 (defun auth-source-pass--build-result (host port user)
   "Build auth-source-pass entry matching HOST, PORT and USER.
