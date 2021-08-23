@@ -466,7 +466,8 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
   (interactive)
   (erc :server "irc.libera.chat"
        :port (auth-source-port "irc.libera.chat")
-       :nick (auth-source-user "irc.libera.chat")))
+       :nick (auth-source-user "irc.libera.chat")
+       :password (auth-source-password "irc.libera.chat")))
 
 ;;--- Organizing -----------------------------------------------------
 
