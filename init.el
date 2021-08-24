@@ -477,9 +477,9 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
 
 ;; Setup Org TODO/Agenda.
 (setq org-log-done 'time)
-(setq org-agenda-files '("~/Org"))
+(setq org-agenda-files '("~/Org/agenda"))
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 1))))
-(setq org-default-notes-file "~/Org/organizer.org")
+(setq org-default-notes-file "~/Org/agenda/organizer.org")
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-todo-keywords
       '((sequence
