@@ -222,7 +222,10 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
 ;; Enable flyspell in certain modes.
 (use-package flyspell
   :hook
-  ((prog-mode LaTeX-mode latex-mode) . flyspell-mode))
+  ((prog-mode) . flyspell-prog-mode)
+  ((LaTeX-mode latex-mode) . flyspell-mode)
+  :config
+  (setq flyspell-issue-message-flag nil))
 
 ;; Enhanced mode-line.
 (use-package smart-mode-line
