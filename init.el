@@ -211,6 +211,14 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
   (amx-mode 1))
 (use-package flx)
 
+;; Named workspaces.
+(use-package perspective
+  :bind
+  ("M-c" . persp-ivy-switch-buffer)
+  ("C-M-j" . persp-ivy-switch-buffer)
+  :config
+  (persp-mode))
+
 ;; Enable flyspell in certain modes.
 (use-package flyspell
   :hook
