@@ -498,6 +498,23 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
          "|"
          "DONE(d)" "CANCELLED(c)")))
 
+;; Note-taking.
+(use-package org-roam
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory (file-truename "~/Org/roam"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n d" . org-roam-dailies-capture-today))
+  :config
+  (setq org-roam-dailies-directory "daily")
+  (org-roam-db-autosync-mode)
+  (org-roam-setup))
+
 
 
 ;;--------------------------------------------------------------------
