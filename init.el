@@ -494,9 +494,8 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-todo-keywords
       '((sequence
-         "TODO(t)" "WAITING(w)" "INACTIVE(i)" "MEETING(m)" "NOTE(n)"
-         "|"
-         "DONE(d)" "CANCELLED(c)")))
+         "TODO(t)" "WAITING(w)" "INACTIVE(i)" "MEETING(m)"
+         "|" "DONE(d)")))
 
 ;; Note-taking.
 (use-package org-roam
