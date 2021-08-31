@@ -216,6 +216,7 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
   :bind
   ("M-c" . persp-ivy-switch-buffer)
   ("C-M-j" . persp-ivy-switch-buffer)
+  ("C-x C-b" . persp-list-buffers)
   :config
   (persp-mode))
 
