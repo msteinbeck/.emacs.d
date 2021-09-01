@@ -336,7 +336,7 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
   :diminish
   :hook
   ((prog-mode LaTeX-mode latex-mode) . company-mode)
-  :bind ("C-<tab>" . company-complete)
+  :bind ("C-M-n" . company-complete)
   :config
   (setq company-idle-delay 0)
   (setq company-show-numbers t)
