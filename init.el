@@ -361,6 +361,10 @@ This version of the function ignores `auth-source-pass--entry-valid-p'."
 (use-package counsel-projectile
   :config
   (counsel-projectile-mode 1))
+(use-package persp-projectile
+  :after projectile perspective)
+(define-key projectile-mode-map
+  (kbd "C-c p p") 'projectile-persp-switch-project)
 
 ;; On-the-fly syntax checking and linting.
 (use-package flycheck
