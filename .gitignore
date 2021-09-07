@@ -1,4 +1,12 @@
-*
+/*
+
 !.gitignore
 !init.el
+
+**/*~
+
 !libs
+
+!straight
+straight/*
+!straight/versions
