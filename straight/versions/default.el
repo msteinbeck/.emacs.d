@@ -34,6 +34,7 @@
  ("let-alist" . "6708ec0b2e6dff80ff5b64698aa009d9070a2ed2")
  ("magit" . "8811d42eab06964f3169b9c15cf1cc1314b8703c")
  ("melpa" . "2a551c7b122dbaca845a0bc0a86137b37521c59e")
+ ("no-littering" . "dcc96cbf5f018a91d406926d3b69715847ef665a")
  ("org" . "3664447eb2417b38f0053674f248d2b0f1592ff0")
  ("org-roam" . "e9ae19c01cb1fac8256e404b3f9c06f4be5468e6")
  ("pdf-tools" . "5f77dae43eb8f71e52e10ba8cf994883f74c3fb7")
